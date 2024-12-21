@@ -8,15 +8,17 @@ uint16_t alt_tab_timer = 0;     // we will be using them soon.
 
 enum custom_keycodes {
     WIN_FOR,
-    WIN_BACK
+    WIN_BACK,
+    DESK_FOR,
+    DESK_BACK
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [0] = LAYOUT(
         LT(6, KC_MPLY), KC_MUTE, KC_VOLD, KC_VOLU, MO(1),
-        RALT(KC_1), RALT(KC_2), RALT(KC_3), RGUI(KC_TAB), TO(0),
-        RALT(KC_4), RALT(KC_5), RALT(KC_6), RALT(KC_F4), TO(2),
+        RGUI(KC_1), RGUI(KC_2), RGUI(KC_3), RGUI(KC_TAB), TO(0),
+        RGUI(KC_4), RGUI(KC_5), RGUI(KC_6), RALT(KC_F4), TO(2),
         RCTL(KC_T), RCTL(KC_W), RCS(KC_TAB), RCTL(KC_TAB), TO(4)
     ),
 
@@ -65,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 const uint16_t PROGMEM encoder_map[][1][2] = {
     [0] = { ENCODER_CCW_CW(WIN_BACK, WIN_FOR) },
-    [1] = { ENCODER_CCW_CW(RGUI(KC_LBRC), RGUI(KC_RBRC)) },
+    [1] = { ENCODER_CCW_CW(DESK_BACK, DESK_FOR) },
     [2] = { ENCODER_CCW_CW(KC_DOWN, KC_UP) },
     [3] = { ENCODER_CCW_CW(KC_LEFT, KC_RGHT) },
     [4] = { ENCODER_CCW_CW(KC_WH_D, KC_WH_U) },
@@ -94,6 +96,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 tap_code(KC_TAB);
                 unregister_code(KC_RSFT);
                 return false;
+            case DESK_FOR:
+                register_code(KC_RGUI);
+                register_code(KC_RCTL);
+                tap_code(KC_RGHT);
+                register_code(KC_RCTL);
+                register_code(KC_RGUI);
+                return true;
+            case DESK_BACK:
+                register_code(KC_RGUI);
+                register_code(KC_RCTL);
+                tap_code(KC_DOWN);
+                register_code(KC_RCTL);
+                register_code(KC_RGUI);
+            return true;
         }
     }
     return true;
