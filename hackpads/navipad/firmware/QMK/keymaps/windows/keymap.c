@@ -100,15 +100,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 register_code(KC_RGUI);
                 register_code(KC_RCTL);
                 tap_code(KC_RGHT);
-                register_code(KC_RCTL);
-                register_code(KC_RGUI);
+                unregister_code(KC_RCTL);
+                unregister_code(KC_RGUI);
                 return true;
             case DESK_BACK:
                 register_code(KC_RGUI);
                 register_code(KC_RCTL);
-                tap_code(KC_DOWN);
-                register_code(KC_RCTL);
-                register_code(KC_RGUI);
+                tap_code(KC_LEFT);
+                unregister_code(KC_RCTL);
+                unregister_code(KC_RGUI);
             return true;
         }
     }
